@@ -1,4 +1,4 @@
-package com.team.ecommerce.user.domain;
+package com.team.ecommerce.user.entity;
 
 import jakarta.persistence.*;
 

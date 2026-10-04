@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: product-inventory-service
+  datasource:
+    url: ${PRODUCT_DB_URL:jdbc:postgresql://localhost:5434/product_db}
+    username: ${PRODUCT_DB_USERNAME:product_app}
+    password: ${PRODUCT_DB_PASSWORD}
+    hikari:
+      connection-timeout: 3000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+
+server:
+  port: ${PRODUCT_SERVICE_PORT:8082}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+app:
+  jwt:
+    issuer: ${JWT_ISSUER:ecommerce-user-service}
+    secret: ${JWT_SECRET}
+  internal-api-key: ${INTERNAL_API_KEY}
+  pagination:
+    max-page-size: ${MAX_PAGE_SIZE:100}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

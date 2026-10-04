@@ -1,0 +1,36 @@
+services:
+  product-db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: product_db
+      POSTGRES_USER: product_app
+      POSTGRES_PASSWORD: ${PRODUCT_DB_PASSWORD}
+    ports:
+      - "5434:5432"
+    volumes:
+      - product-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U product_app -d product_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  product-inventory-service:
+    build: ./product-inventory-service
+    depends_on:
+      product-db:
+        condition: service_healthy
+    environment:
+      PRODUCT_SERVICE_PORT: 8082
+      PRODUCT_DB_URL: jdbc:postgresql://product-db:5432/product_db
+      PRODUCT_DB_USERNAME: product_app
+      PRODUCT_DB_PASSWORD: ${PRODUCT_DB_PASSWORD}
+      JWT_ISSUER: ${JWT_ISSUER}
+      JWT_SECRET: ${JWT_SECRET}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      MAX_PAGE_SIZE: ${MAX_PAGE_SIZE:-100}
+    ports:
+      - "8082:8082"
+
+volumes:
+  product-db-data:

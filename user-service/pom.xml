@@ -14,10 +14,10 @@
     </parent>
 
     <groupId>com.team.ecommerce</groupId>
-    <artifactId>order-service</artifactId>
+    <artifactId>user-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>order-service</name>
+    <name>user-service</name>
     <description>User and Authentication Service for E-commerce Microservices</description>
 
     <properties>

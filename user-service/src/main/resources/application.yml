@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: order-service
+    name: user-service
 
   datasource:
     url: ${USER_DB_URL:jdbc:postgresql://localhost:5433/user_db}

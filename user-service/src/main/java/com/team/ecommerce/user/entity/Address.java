@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "addresses")
@@ -41,7 +43,13 @@ public class Address {
     @Column(name = "postal_code", nullable = false, length = 20)
     private String postalCode;
 
-    @Column(name = "country_code", nullable = false, length = 2)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(
+            name = "country_code",
+            nullable = false,
+            length = 2,
+            columnDefinition = "char(2)"
+    )
     private String countryCode;
 
     @Column(name = "is_default", nullable = false)
@@ -52,4 +60,60 @@ public class Address {
 
     @Column(name = "updated_at", nullable = false)
     private OffsetDateTime updatedAt;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getLine1() {
+        return line1;
+    }
+
+    public String getLine2() {
+        return line2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public OffsetDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }
